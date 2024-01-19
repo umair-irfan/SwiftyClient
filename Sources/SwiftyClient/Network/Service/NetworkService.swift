@@ -8,8 +8,7 @@ import Combine
 import Foundation
 
 public protocol NetworkService {
-    func request<T>(apiClient: APIClient, route: ClientRequestConvertible,
-                    retries: Int, thread: RunLoop) -> AnyPublisher<T, NetworkError> where T: Decodable
+    
 }
 
 extension NetworkService {
