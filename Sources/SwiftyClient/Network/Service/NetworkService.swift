@@ -11,8 +11,8 @@ public protocol NetworkService {
     
 }
 
-extension NetworkService {
-    public func request<T>(apiClient: APIClient, route: ClientRequestConvertible, retries: Int = 0, thread: RunLoop = .main) -> AnyPublisher<T, NetworkError> where T: Decodable {
+public extension NetworkService {
+    func request<T>(apiClient: APIClient, route: ClientRequestConvertible, retries: Int = 0, thread: RunLoop = .main) -> AnyPublisher<T, NetworkError> where T: Decodable {
         // MARK: request is URLSession Method
         return apiClient.request(route: route)
             .tryMap { apiResponse -> APIResponseConvertible in
