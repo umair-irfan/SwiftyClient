@@ -1,5 +1,5 @@
 //
-//  NetworkService.swift
+//  NetworkServiceType.swift
 //  TodoJobLogic
 //
 //  Created by umair irfan on 18/01/2024.
@@ -7,12 +7,12 @@
 import Combine
 import Foundation
 
-/// All applictcation services Shall Inherit from Network Service to extend the functionality
-/// NetwrokService class the base class containing the primary response validations
-/// Responsibility of this class is to decode the network response and
-/// handle network exceptions
-class NetworkService: NetworkServiceType {
-    
+public protocol NetworkService {
+    func request<T>(apiClient: APIClient, route: ClientRequestConvertible,
+                    retries: Int, thread: RunLoop) -> AnyPublisher<T, NetworkError> where T: Decodable
+}
+
+extension NetworkService {
     func request<T>(apiClient: APIClient, route: ClientRequestConvertible, retries: Int = 0, thread: RunLoop = .main) -> AnyPublisher<T, NetworkError> where T: Decodable {
         // MARK: request is URLSession Method
         return apiClient.request(route: route)
@@ -46,9 +46,7 @@ class NetworkService: NetworkServiceType {
             .retry(retries)
             .eraseToAnyPublisher()
     }
-}
-
-private extension NetworkService {
+    
     func decode<T>(data: Data) throws -> T where T: Decodable {
         let decoder = JSONDecoder()
         return try decoder.decode(T.self, from: data)
