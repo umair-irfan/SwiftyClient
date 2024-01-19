@@ -11,7 +11,7 @@ import Foundation
 /// NetwrokService class the base class containing the primary response validations
 /// Responsibility of this class is to decode the network response and
 /// handle network exceptions
-public class NetworkService: NetworkServiceType {
+class NetworkService: NetworkServiceType {
     
     func request<T>(apiClient: APIClient, route: ClientRequestConvertible, retries: Int = 0, thread: RunLoop = .main) -> AnyPublisher<T, NetworkError> where T: Decodable {
         // MARK: request is URLSession Method

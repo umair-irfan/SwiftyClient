@@ -7,7 +7,7 @@
 import Combine
 import Foundation
 
-protocol NetworkServiceType {
+public protocol NetworkServiceType {
     func request<T>(apiClient: APIClient, route: ClientRequestConvertible,
                     retries: Int, thread: RunLoop) -> AnyPublisher<T, NetworkError> where T: Decodable
 }
