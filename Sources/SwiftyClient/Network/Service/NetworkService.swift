@@ -45,7 +45,9 @@ public extension NetworkService {
             .retry(retries)
             .eraseToAnyPublisher()
     }
-    
+}
+
+private extension NetworkService {
     func decode<T>(data: Data) throws -> T where T: Decodable {
         let decoder = JSONDecoder()
         return try decoder.decode(T.self, from: data)
